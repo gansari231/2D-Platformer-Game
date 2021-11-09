@@ -10,43 +10,26 @@ public class PlayerController : MonoBehaviour
     Collider2D player_collider;
     [SerializeField]
     Collider2D crouch_collider;
-    [SerializeField]
-    Rigidbody2D player_RB;
 
+    float runspeed = 3.0f;
+    [SerializeField]
     float jumpspeed = 5.0f;
-    bool crouch = false;
-    bool player_jump;
+    bool crouch;
 
     // Update is called once per frame
     void Update()
     {
-        float speed = Input.GetAxis("Horizontal");
-        float jump = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Jump");
 
-        player_animator.SetFloat("Speed", Mathf.Abs(speed));
+        Player_Movement(horizontal);
+        Player_Run(horizontal);
+        Player_Jump(vertical);
 
-        Vector3 scale = transform.localScale;
-
-        if (speed < 0)
-        {
-            scale.x = -1f * Mathf.Abs(scale.x);
-        }
-        else if (speed > 0)
-        {
-            scale.x = Mathf.Abs(scale.x);
-        }
-
-        transform.localScale = scale;
-
-        if(Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             Player_Crouch();
-        }
-
-        if(Input.GetKeyDown(KeyCode.W))
-        {
-            Player_Jump();  
-        }
+        }      
     }
 
     void Player_Crouch()
@@ -67,19 +50,43 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Player_Jump()
+    void Player_Jump(float vertical)
     {
-        if(player_jump == true)
+        if(vertical > 0)
         {
-            player_animator.SetBool("Jump", player_jump);
-            Vector2 MoveUp = new Vector2(0.0f, 1.0f);
-            player_RB.velocity = MoveUp * jumpspeed;
-            player_jump = false;
+            player_animator.SetBool("Jump", true);
+            Vector2 MoveUp = transform.position;
+            MoveUp.y += vertical * jumpspeed * Time.deltaTime;
+            transform.position = MoveUp;
         }
-        else
+        else if(vertical == 0)
         {
-            player_animator.SetBool("Jump", player_jump);
-            player_jump = true;
+            player_animator.SetBool("Jump", false);
         }
+    }
+
+    void Player_Movement(float horizontal)
+    {
+        player_animator.SetFloat("Speed", Mathf.Abs(horizontal));
+
+        Vector3 scale = transform.localScale;
+
+        if (horizontal < 0)
+        {
+            scale.x = -1f * Mathf.Abs(scale.x);
+        }
+        else if (horizontal > 0)
+        {
+            scale.x = Mathf.Abs(scale.x);
+        }
+
+        transform.localScale = scale;
+    }
+
+    void Player_Run(float horizontal)
+    {
+        Vector2 move_position = transform.position;
+        move_position.x += horizontal * runspeed * Time.deltaTime;
+        transform.position = move_position;
     }
 }
