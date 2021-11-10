@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
 
     float runspeed = 3.0f;
     [SerializeField]
-    float jumpspeed = 20.0f;
+    float jumpspeed = 10.0f;
     bool crouch;
     [SerializeField]
     bool onGround;
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
         if(vertical > 0 && onGround == true)
         {
             player_animator.SetBool("Jump", true);
-            player_Rb.AddForce(new Vector2(0.0f, 8.0f) * jumpspeed, ForceMode2D.Force);
+            player_Rb.AddForce(new Vector2(0.0f, 5.0f) * jumpspeed, ForceMode2D.Impulse);
             onGround = false;
         }
         else if(vertical == 0 && onGround == false)
