@@ -7,14 +7,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     Animator player_animator;
     [SerializeField]
-    Collider2D player_collider;
-    [SerializeField]
-    Collider2D crouch_collider;
+    Rigidbody2D player_Rb;
 
     float runspeed = 3.0f;
     [SerializeField]
-    float jumpspeed = 5.0f;
+    float jumpspeed = 20.0f;
     bool crouch;
+    [SerializeField]
+    bool onGround;
 
     // Update is called once per frame
     void Update()
@@ -37,31 +37,27 @@ public class PlayerController : MonoBehaviour
         if(crouch == false)
         {
             crouch = true;
-            player_collider.enabled = false;
-            crouch_collider.enabled = true;
             player_animator.SetBool("Crouch", crouch);
         }
         else
         {
             crouch = false;
-            player_collider.enabled = true;
-            crouch_collider.enabled = false;
             player_animator.SetBool("Crouch", false);
         }
     }
 
     void Player_Jump(float vertical)
     {
-        if(vertical > 0)
+        if(vertical > 0 && onGround == true)
         {
             player_animator.SetBool("Jump", true);
-            Vector2 MoveUp = transform.position;
-            MoveUp.y += vertical * jumpspeed * Time.deltaTime;
-            transform.position = MoveUp;
+            player_Rb.AddForce(new Vector2(0.0f, 8.0f) * jumpspeed, ForceMode2D.Force);
+            onGround = false;
         }
-        else if(vertical == 0)
+        else if(vertical == 0 && onGround == false)
         {
             player_animator.SetBool("Jump", false);
+            onGround = true;
         }
     }
 
