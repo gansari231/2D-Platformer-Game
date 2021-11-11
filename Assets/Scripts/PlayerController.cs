@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
     Animator player_animator;
     [SerializeField]
     Rigidbody2D player_Rb;
-
+    [SerializeField]
+    ScoreController player_score;
     float runspeed = 3.0f;
     [SerializeField]
     float jumpspeed = 10.0f;
@@ -84,5 +85,10 @@ public class PlayerController : MonoBehaviour
         Vector2 move_position = transform.position;
         move_position.x += horizontal * runspeed * Time.deltaTime;
         transform.position = move_position;
+    }
+
+    public void KeyCollected()
+    {
+        player_score.UpdateScore(10);
     }
 }
