@@ -249,5 +249,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player_animator: {fileID: 4554816703856473886}
   player_Rb: {fileID: 4554816703856473888}
+  player_score: {fileID: 0}
   jumpspeed: 10
   onGround: 0

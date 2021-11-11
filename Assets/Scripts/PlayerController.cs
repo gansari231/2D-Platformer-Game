@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class PlayerController : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Jump");
-
+       
         Player_Movement(horizontal);
         Player_Run(horizontal);
         Player_Jump(vertical);
@@ -90,5 +91,16 @@ public class PlayerController : MonoBehaviour
     public void KeyCollected()
     {
         player_score.UpdateScore(10);
+    }
+
+    public void KillPlayer()
+    {
+        Debug.Log("Player collided with enemy...");
+        ReloadScene();
+    }
+
+    void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
