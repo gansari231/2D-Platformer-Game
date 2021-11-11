@@ -11,7 +11,11 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D player_Rb;
     [SerializeField]
     ScoreController player_score;
+    [SerializeField]
+    GameObject life_one, life_two, life_three;
+
     float runspeed = 3.0f;
+    int player_health = 3;
     [SerializeField]
     float jumpspeed = 10.0f;
     bool crouch;
@@ -95,8 +99,22 @@ public class PlayerController : MonoBehaviour
 
     public void KillPlayer()
     {
-        Debug.Log("Player collided with enemy...");
-        ReloadScene();
+        player_health--;
+        if(player_health == 2)
+        {
+            //player_animator.SetBool("Hurt", true);
+            life_three.SetActive(false);
+        }
+        else if(player_health == 1)
+        {
+            //player_animator.SetBool("Hurt", true);
+            life_two.SetActive(false);
+        }
+        else
+        {
+            //player_animator.SetBool("Hurt", true);
+            ReloadScene();
+        }
     }
 
     void ReloadScene()
