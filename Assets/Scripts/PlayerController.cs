@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     ScoreController player_score;
     [SerializeField]
     GameObject life_one, life_two, life_three;
+    [SerializeField]
+    GameOverController player_gameover;
 
     float runspeed = 3.0f;
     int player_health = 3;
@@ -102,23 +104,20 @@ public class PlayerController : MonoBehaviour
         player_health--;
         if(player_health == 2)
         {
-            //player_animator.SetBool("Hurt", true);
+            player_animator.SetBool("Hurt",true);
             life_three.SetActive(false);
         }
         else if(player_health == 1)
         {
-            //player_animator.SetBool("Hurt", true);
+            player_animator.SetBool("Hurt", true);
             life_two.SetActive(false);
         }
         else
         {
-            //player_animator.SetBool("Hurt", true);
-            ReloadScene();
+            player_animator.SetBool("Hurt", true);
+            player_gameover.GameOver();
+            this.enabled = false;
         }
-    }
-
-    void ReloadScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        player_animator.SetBool("Hurt", false);
     }
 }
