@@ -9,8 +9,8 @@ public class LevelEndController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Hurray!!!! Level Completed!!!!");
-            SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex) + 1);
+            Debug.Log("Level completed....");
+            LevelManager.Instance.MarkLevelComplete();
         }
     }
 }
