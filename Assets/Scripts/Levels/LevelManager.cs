@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     private static LevelManager instance;
     public static LevelManager Instance {  get { return instance; } }
     public string[] levels;
+
     private void Awake()
     {
         if(instance == null)
@@ -49,7 +50,7 @@ public class LevelManager : MonoBehaviour
         {
             SetLevelStatus(levels[nextSceneIndex], LevelStatus.unlocked);
             
-            SceneManager.LoadScene(levels[nextSceneIndex]);
+            SceneManager.LoadScene(levels[nextSceneIndex]);  
         }
     }
 }
