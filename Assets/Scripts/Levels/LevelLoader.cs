@@ -9,8 +9,6 @@ public class LevelLoader : MonoBehaviour
 {
     public string LevelName;
     Button LevelLoad_btn;
-    [SerializeField]
-    AudioSource Start_Game;
 
     void Awake()
     {
@@ -19,7 +17,6 @@ public class LevelLoader : MonoBehaviour
     }
     public void LoadLevel()
     {
-        Start_Game.Play();
         LevelStatus levelstatus = LevelManager.Instance.GetLevelStatus(LevelName);
         switch(levelstatus)
         {

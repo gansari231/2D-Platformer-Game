@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class EnemyController : MonoBehaviour
 {
+
     public Transform[] waypoints;
     private int _currentWaypointIndex = 0;
     private float _speed = 2f;

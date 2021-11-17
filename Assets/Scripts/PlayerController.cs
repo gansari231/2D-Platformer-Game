@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
@@ -16,14 +15,6 @@ public class PlayerController : MonoBehaviour
     GameObject life_one, life_two, life_three;
     [SerializeField]
     GameOverController player_gameover;
-    [SerializeField]
-    AudioSource player_jump;
-    [SerializeField]
-    AudioSource player_movement;
-    [SerializeField]
-    AudioSource player_land;
-    [SerializeField]
-    AudioSource player_keypicked;
 
     float runspeed = 3.0f;
     int player_health = 3;
@@ -33,15 +24,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     bool onGround;
 
-    void Awake()
-    {
-        onGround = true;
-    }
-
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
+        float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Jump");
        
         Player_Movement(horizontal);
@@ -52,14 +38,6 @@ public class PlayerController : MonoBehaviour
         {
             Player_Crouch();
         }      
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Platform"))
-        {
-            onGround = true;
-        }
     }
 
     void Player_Crouch()
@@ -82,12 +60,12 @@ public class PlayerController : MonoBehaviour
         {
             player_animator.SetBool("Jump", true);
             player_Rb.AddForce(new Vector2(0.0f, 5.0f) * jumpspeed, ForceMode2D.Impulse);
-            player_jump.Play();
             onGround = false;
         }
         else if(vertical == 0 && onGround == false)
         {
             player_animator.SetBool("Jump", false);
+            onGround = true;
         }
     }
 
@@ -105,6 +83,7 @@ public class PlayerController : MonoBehaviour
         {
             scale.x = Mathf.Abs(scale.x);
         }
+
         transform.localScale = scale;
     }
 
@@ -118,7 +97,6 @@ public class PlayerController : MonoBehaviour
     public void KeyCollected()
     {
         player_score.UpdateScore(10);
-        player_keypicked.Play();
     }
 
     public void KillPlayer()
@@ -126,19 +104,20 @@ public class PlayerController : MonoBehaviour
         player_health--;
         if(player_health == 2)
         {
-            player_animator.SetTrigger("Hurt");
+            player_animator.SetBool("Hurt",true);
             life_three.SetActive(false);
         }
         else if(player_health == 1)
         {
-            player_animator.SetTrigger("Hurt");
+            player_animator.SetBool("Hurt", true);
             life_two.SetActive(false);
         }
         else
         {
-            player_animator.SetTrigger("Death");
+            player_animator.SetBool("Hurt", true);
             player_gameover.GameOver();
             this.enabled = false;
         }
+        player_animator.SetBool("Hurt", false);
     }
 }

@@ -254,9 +254,5 @@ MonoBehaviour:
   life_two: {fileID: 0}
   life_three: {fileID: 0}
   player_gameover: {fileID: 0}
-  player_jump: {fileID: 0}
-  player_movement: {fileID: 0}
-  player_land: {fileID: 0}
-  player_keypicked: {fileID: 0}
   jumpspeed: 10
   onGround: 0

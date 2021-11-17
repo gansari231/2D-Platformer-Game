@@ -7,13 +7,10 @@ public class LevelEndController : MonoBehaviour
 {
     [SerializeField]
     GameObject LevelComplete;
-    [SerializeField]
-    AudioSource Door_open;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("Player"))
         {
-            Door_open.Play();
             StartCoroutine("DisplayUI");
         }
     }
