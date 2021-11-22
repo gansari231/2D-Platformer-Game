@@ -12,6 +12,7 @@ public class ScoreController : MonoBehaviour
     {
         scoreText = GetComponent<TextMeshProUGUI>();
     }
+
     void Start()
     {
         RefreshUI();

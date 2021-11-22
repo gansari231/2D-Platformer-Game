@@ -18,11 +18,13 @@ public class MainMenuController : MonoBehaviour
         Press_Start.Play();
         LevelSelection_Box.SetActive(true);
     }
+
     public void ExitLevelSelection()
     {
         Press_Cross.Play();
         LevelSelection_Box.SetActive(false);
     }
+
     public void QuitGame()
     {
         Press_Start.Play();

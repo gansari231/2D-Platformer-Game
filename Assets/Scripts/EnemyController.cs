@@ -20,6 +20,11 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+        Enemy_Movement();
+    }
+
+    void Enemy_Movement()
+    {
         Transform wp = waypoints[_currentWaypointIndex];
         if (Vector3.Distance(transform.position, wp.position) < 0.01f)
         {
@@ -32,5 +37,4 @@ public class EnemyController : MonoBehaviour
             transform.Rotate(new Vector2(0.0f, 0.0f));
         }
     }
-
 }

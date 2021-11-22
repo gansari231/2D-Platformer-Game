@@ -137,6 +137,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             player_animator.SetTrigger("Death");
+            life_one.SetActive(false);
             player_gameover.GameOver();
             this.enabled = false;
         }

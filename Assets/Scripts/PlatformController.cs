@@ -11,16 +11,19 @@ public class PlatformController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Platform_Movement();
+    }
+
+    void Platform_Movement()
+    {
         Transform wp = waypoints[_currentWaypointIndex];
         if (Vector3.Distance(transform.position, wp.position) < 0.01f)
         {
             _currentWaypointIndex = (_currentWaypointIndex + 1) % waypoints.Length;
-            //transform.Rotate(new Vector2(0.0f, 180.0f));
         }
         else
         {
             transform.position = Vector3.MoveTowards(transform.position, wp.position, _speed * Time.deltaTime);
-            //transform.Rotate(new Vector2(0.0f, 0.0f));
         }
     }
 }
