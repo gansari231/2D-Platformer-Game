@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         if(crouch == false)
         {
             crouch = true;
-            player_animator.SetBool("Crouch", crouch);
+            player_animator.SetBool("Crouch", true);
         }
         else
         {
